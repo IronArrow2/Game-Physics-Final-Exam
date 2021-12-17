@@ -36,7 +36,12 @@ public class CollisionManager : MonoBehaviour
             {
                 if (i != j)
                 {
-                    CheckAABBs(cubes[i], cubes[j]);
+                    Contact reference = new Contact(cubes[j]);
+                    CheckAABBs(cubes[i], cubes[j], ref reference);
+
+                    RigidBody3D RBA = cubes[i].gameObject.GetComponent<RigidBody3D>();
+                    RigidBody3D RBB = cubes[j].gameObject.GetComponent<RigidBody3D>();
+                    ApplyVelocity(RBA, RBB, reference.face);
                 }
             }
         }
@@ -48,7 +53,14 @@ public class CollisionManager : MonoBehaviour
             {
                 if (cube.name != "Player")
                 {
-                    CheckSphereAABB(sphere, cube);
+                    CubeBehaviour cubeBullet = sphere.gameObject.GetComponent<CubeBehaviour>();
+                    Contact reference = new Contact(cube);
+                    CheckAABBs(cube, cubeBullet, ref reference);
+                    sphere.collisionNormal = reference.face;
+
+                    Reflect(sphere);
+
+                    //CheckSphereAABB(sphere, cube);
                 }
                 
             }
@@ -121,10 +133,8 @@ public class CollisionManager : MonoBehaviour
     }
 
 
-    public static void CheckAABBs(CubeBehaviour a, CubeBehaviour b)
+    public static void CheckAABBs(CubeBehaviour a, CubeBehaviour b, ref Contact contactB)
     {
-        Contact contactB = new Contact(b);
-
         if ((a.min.x <= b.max.x && a.max.x >= b.min.x) &&
             (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
             (a.min.z <= b.max.z && a.max.z >= b.min.z))
@@ -175,10 +185,6 @@ public class CollisionManager : MonoBehaviour
                     a.gameObject.GetComponent<RigidBody3D>().Stop();
                     a.isGrounded = true;
                 }
-
-                 RigidBody3D RBA = a.gameObject.GetComponent<RigidBody3D>();
-                 RigidBody3D RBB = b.gameObject.GetComponent<RigidBody3D>();
-                 ApplyVelocity(RBA, RBB, face);
                 
 
                 // add the new contact

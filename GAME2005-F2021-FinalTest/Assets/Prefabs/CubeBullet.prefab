@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -1773402601086416061}
   - component: {fileID: -6783123296940717947}
   - component: {fileID: 9126029176878923009}
+  - component: {fileID: 8837880103402095417}
   m_Layer: 0
   m_Name: CubeBullet
   m_TagString: Untagged
@@ -95,12 +96,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb26199208f309242b07df29a9ab821e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 4
   direction: {x: 0, y: 0, z: 0}
-  range: 0
-  radius: 0
+  range: 20
+  radius: 0.05
   debug: 0
   isColliding: 0
   collisionNormal: {x: 0, y: 0, z: 0}
   penetration: 0
   bulletManager: {fileID: 0}
+--- !u!114 &8837880103402095417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5058677092153113610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1d0dbd2dcd7624487947ef0ac21a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: {x: 0, y: 0, z: 0}
+  max: {x: 0, y: 0, z: 0}
+  min: {x: 0, y: 0, z: 0}
+  isColliding: 0
+  debug: 0
+  contacts: []
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  isGrounded: 0
